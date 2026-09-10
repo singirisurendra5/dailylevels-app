@@ -107,7 +107,7 @@ export default function Calculator() {
                 return (
                   <div className={`rung ${L.side}${extra}`} key={L.key}>
                     <span className="lbl">{L.label}</span>
-                    <span className="price mono">₹{formatINR(L.price)}</span>
+                    <span className="price mono">{formatINR(L.price)}</span>
                   </div>
                 );
               })}
