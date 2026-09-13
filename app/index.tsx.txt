@@ -1,0 +1,26 @@
+import React from 'react';
+import Hero from '../components/Hero';
+import Pricing from '../components/Pricing';
+// Import your existing Navbar/Footer here
+
+export default function LandingPage() {
+  
+  // PRESERVE YOUR EXISTING LOGIC BELOW
+  const handleExistingAction = () => {
+    // Put your existing router.push or payment trigger here
+  };
+
+  return (
+    <div className="bg-[#050505] min-h-screen font-sans selection:bg-emerald-500/30">
+      <Hero onGetStarted={handleExistingAction} />
+      
+      {/* Feature Section Placeholder - Keep your existing features here but apply dark styling */}
+      
+      <Pricing onSubscribe={handleExistingAction} />
+      
+      <footer className="py-12 border-t border-white/5 text-center text-zinc-600 text-sm">
+        © {new Date().getFullYear()} DailyLevels. All Rights Reserved. Not a SEBI registered advisor.
+      </footer>
+    </div>
+  );
+}

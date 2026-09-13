@@ -1,0 +1,67 @@
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const AnimatedChart = () => {
+  const [candles, setCandles] = useState([
+    { h: 40, type: 'up' }, { h: 55, type: 'up' }, { h: 35, type: 'down' },
+    { h: 60, type: 'up' }, { h: 45, type: 'down' }, { h: 70, type: 'up' },
+    { h: 50, type: 'down' }, { h: 65, type: 'up' }
+  ]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCandles((prev) => {
+        const next = [...prev.slice(1)];
+        const lastH = prev[prev.length - 1].h;
+        const newH = Math.max(20, Math.min(80, lastH + (Math.random() > 0.5 ? 12 : -12)));
+        next.push({ h: newH, type: newH > lastH ? 'up' : 'down' });
+        return next;
+      });
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative w-full h-[350px] bg-[#0A0A0A] border border-white/10 rounded-2xl p-6 overflow-hidden shadow-2xl">
+      <div className="absolute top-4 left-6 flex items-center gap-4">
+        <span className="text-[10px] text-emerald-500 font-mono border border-emerald-500/20 px-2 py-0.5 rounded bg-emerald-500/5 items-center flex gap-1">
+          <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse" /> LIVE PREVIEW
+        </span>
+        <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">Demo Market Data</span>
+      </div>
+
+      {/* S/R Lines */}
+      <div className="absolute inset-0 flex flex-col justify-between py-12 px-2 opacity-30">
+        {['R3', 'R2', 'R1', 'S1', 'S2', 'S3'].map((l) => (
+          <div key={l} className="w-full border-t border-zinc-700 flex justify-end">
+            <span className="text-[9px] font-mono text-zinc-500 mr-2 -mt-2 bg-[#0A0A0A] px-1">{l}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Moving Candles */}
+      <div className="flex items-end justify-around h-full pt-16 pb-8 gap-1 md:gap-3">
+        <AnimatePresence mode="popLayout">
+          {candles.map((candle, i) => (
+            <motion.div
+              key={`${i}-${candle.h}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="flex flex-col items-center flex-1 max-w-[15px]"
+            >
+              <div 
+                className={`w-full rounded-sm relative shadow-lg ${candle.type === 'up' ? 'bg-emerald-500' : 'bg-rose-500'}`}
+                style={{ height: `${candle.h}%` }}
+              >
+                <div className={`absolute -top-3 -bottom-3 left-1/2 w-[1px] bg-inherit opacity-60`} />
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+};
+
+export default AnimatedChart;

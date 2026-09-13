@@ -1,0 +1,61 @@
+import React from 'react';
+
+const Pricing = ({ onSubscribe }: { onSubscribe: () => void }) => {
+  return (
+    <section id="pricing" className="py-24 bg-[#050505] text-white">
+      <div className="container mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-4xl font-bold mb-4 tracking-tight">Simple, Transparent Pricing</h2>
+          <p className="text-zinc-400">Everything you need to trade with mathematical precision. No hidden fees.</p>
+        </div>
+
+        <div className="max-w-md mx-auto relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-3xl blur opacity-20 transition duration-1000 group-hover:opacity-40"></div>
+          
+          <div className="relative bg-[#0C0C0C] border border-white/10 p-8 md:p-12 rounded-3xl">
+            <div className="flex justify-between items-center mb-8">
+              <span className="text-zinc-400 font-mono text-xs uppercase tracking-widest">Premium Plan</span>
+              <span className="bg-emerald-500/10 text-emerald-500 text-[10px] font-bold px-3 py-1 rounded-full border border-emerald-500/20">ANNUAL</span>
+            </div>
+
+            <div className="mb-8">
+              <div className="flex items-baseline gap-2">
+                <span className="text-6xl font-bold tracking-tighter">₹1,999</span>
+                <span className="text-zinc-500 text-lg">/ year</span>
+              </div>
+              <p className="text-zinc-500 text-sm mt-4">Full access to automated support, resistance, and CPR levels for 365 days.</p>
+            </div>
+
+            <div className="space-y-4 mb-10 text-zinc-300">
+              {[
+                "Nifty, Bank Nifty & FinNifty",
+                "150+ FnO Stock Analytics",
+                "Daily CPR & Camarilla Levels",
+                "Breakout/Breakdown Zones",
+                "Mobile Friendly Dashboard",
+                "No Automatic Renewals"
+              ].map((feat) => (
+                <div key={feat} className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-sm">{feat}</span>
+                </div>
+              ))}
+            </div>
+
+            <button 
+              onClick={onSubscribe}
+              className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-emerald-400 transition-all duration-300 shadow-xl shadow-white/5"
+            >
+              Get Daily Levels Now →
+            </button>
+            <p className="text-[10px] text-zinc-600 text-center mt-4 tracking-widest uppercase">Secure SSL Checkout</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;
